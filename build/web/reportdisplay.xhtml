@@ -1,0 +1,67 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"    >
+    <h:head>
+        <title>Vidhya Project</title>
+        <h:outputStylesheet library="css" name="/resources/css/style.css"  />
+        <style type="text/css">
+            .nav{
+                border:1px solid #cdcdcd;
+                float:left;
+                width:300px;
+                height:500px;                
+            }
+            .content{
+                border:1px solid #cdcdcd;
+                float:left;
+                width:500px;
+                height:500px;
+            }
+            ul{
+                list-style: none;
+            }
+            .clear{
+                clear:both;
+            }
+        </style>    
+    </h:head>
+    <h:body>
+        <h:form id="displayForm">
+            <h:panelGroup layout="block">
+                <h:button value="Groups" outcome="groups.xhtml" /> |
+                <h:button value="Add Group" outcome="newgroup.xhtml" /> |             
+                <h:button value="Reports" outcome="reports.xhtml" /> | 
+                <h:button value="Add Report" outcome="newreport.xhtml" /> |            
+            </h:panelGroup>   
+            <div>
+                <h:panelGroup class="nav" layout="block">
+                    <ul>
+                        <ui:repeat value="#{reportsDisplay.groups}" var="group">
+                            <li>
+                                <h:commandLink>
+                                    #{group.name}
+                                    <f:ajax event="click" listener="#{reportsDisplay.selectGroup(group)}" />
+                                </h:commandLink>
+                            </li>
+                        </ui:repeat>
+                    </ul>    
+                </h:panelGroup>
+                <h:panelGroup class="content" layout="block">
+                    <ul>
+                        <ui:repeat value="#{reportsDisplay.reports}" var="rep">
+                            <li>
+                                #{rep.title} 
+                                <h:outputLink value="reportview.xhtml?id=#{rep.reportId}">view</h:outputLink>
+                            </li>
+                        </ui:repeat>
+                    </ul>    
+                </h:panelGroup>
+                <div class="clear"></div>
+            </div>
+        </h:form>
+    </h:body>
+</html>
+
